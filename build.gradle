@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'jetty'
 
 // JDK 7
 sourceCompatibility = 1.7
@@ -20,17 +19,7 @@ dependencies {
 
 }
 
-// Embeded Jetty for testing
-jettyRun{
-	contextPath = "spring4"
-	httpPort = 8080
-}
-
-jettyRunWar{
-	contextPath = "spring4"
-	httpPort = 8080
-}
-
+//Stage task for deploying to Heroku
 task stage() {
     dependsOn clean, war
 }
@@ -44,4 +33,12 @@ task copyToLib(type: Copy) {
 }
 
 stage.dependsOn(copyToLib)
+
+//Task to run web app locally
+task runLocal(type: JavaExec) {
+    dependsOn war
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'webapp.runner.launch.Main'
+    args  ['build/libs/spring4-hello-world.war']
+}
 
