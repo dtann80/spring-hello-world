@@ -1,5 +1,7 @@
 package com.example.helloworld.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.example.helloworld.service.HelloWorldService;
@@ -44,7 +46,6 @@ public class WelcomeController {
 		
 		model.addObject("title", helloWorldService.getTitle(name));
 		model.addObject("msg", helloWorldService.getDesc());
-		
 		return model;
 
 	}
